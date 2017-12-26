@@ -24,15 +24,32 @@ void UGrabber::BeginPlay()
 	
 	///Get Physics Handle
 	PhysicsHandle = GetOwner()->FindComponentByClass<UPhysicsHandleComponent>();
-	if (PhysicsHandle) {
+	///Get input component. this only appears at runtime
+	InputComponent = GetOwner()->FindComponentByClass<UInputComponent>();
 
+	if (PhysicsHandle) {
 	}
 	else {
 		UE_LOG(LogTemp, Error,TEXT("%s is missing UPhysicsHandleComponent"),
 			*(GetOwner()->GetName())
 		)
 	}
+	if (InputComponent){
+		UE_LOG(LogTemp, Warning, TEXT("%s has a UInputComponent"),
+			*(GetOwner()->GetName())
+		);
+		///Bind an action to a method
+		InputComponent->BindAction("Grab", IE_Pressed, this, &UGrabber::Grab);
+	}
+	else {
+		UE_LOG(LogTemp, Error, TEXT("%s is missing UInputComponent"),
+			*(GetOwner()->GetName())
+		)
+
+	}
 	
+
+
 }
 
 
@@ -75,3 +92,6 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 	
 }
 
+void UGrabber::Grab() {
+	return;
+}
