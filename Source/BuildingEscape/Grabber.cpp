@@ -3,7 +3,7 @@
 #include "Grabber.h"
 #include "GameFramework/Actor.h"
 #include "Engine/World.h"
-
+#include "Public/DrawDebugHelpers.h"
 #define OUT
 // Sets default values for this component's properties
 UGrabber::UGrabber()
@@ -37,6 +37,17 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 		OUT PlayerViewPointRotation);
 	FString LocationString = PlayerViewPointLocation.ToString();
 	FString RotationString = PlayerViewPointRotation.ToString();
-	UE_LOG(LogTemp, Warning, TEXT("L: %s, R: %s"),*LocationString,*RotationString);
+	//UE_LOG(LogTemp, Warning, TEXT("L: %s, R: %s"),*LocationString,*RotationString);
+
+	FVector LineTraceEnd = PlayerViewPointLocation + PlayerViewPointRotation.Vector() * Reach;
+	DrawDebugLine(
+		GetWorld(),
+		PlayerViewPointLocation,
+		LineTraceEnd,
+		FColor(255, 0, 0),
+		false, //line persist
+		0.f, //lifetime
+		0.f, //priority
+		10.0f);//thickness
 }
 
