@@ -40,6 +40,7 @@ void UGrabber::BeginPlay()
 		);
 		///Bind an action to a method
 		InputComponent->BindAction("Grab", IE_Pressed, this, &UGrabber::Grab);
+		InputComponent->BindAction("Grab", IE_Released, this, &UGrabber::Release);
 	}
 	else {
 		UE_LOG(LogTemp, Error, TEXT("%s is missing UInputComponent"),
@@ -87,11 +88,15 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 	);
 	AActor* ActorHit = Hit.GetActor();
 	if (ActorHit) {
-		UE_LOG(LogTemp, Warning, TEXT("Pointing at %s"), *(ActorHit->GetName()))
+		//UE_LOG(LogTemp, Warning, TEXT("Pointing at %s"), *(ActorHit->GetName()))
 	}
 	
 }
 
 void UGrabber::Grab() {
-	return;
+	UE_LOG(LogTemp, Warning, TEXT("Grabbed pressed"));
+}
+
+void UGrabber::Release() {
+	UE_LOG(LogTemp, Warning, TEXT("Grab Released"));
 }

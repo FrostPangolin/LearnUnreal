@@ -13,4 +13,5 @@ Content/StarterContent/HDRI
 #VS GENERATED FILES    #
 ########################
 *.VC.db
+*.VC.VC.opendb
 .vs/
